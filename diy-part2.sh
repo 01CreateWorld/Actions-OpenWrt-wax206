@@ -18,3 +18,10 @@
 
 # Modify hostname
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
+
+# 修改 firmware 分区大小为 256M 剩余全部空间 (0xfa80000)
+sed -i 's/<0x580000 0x2800000>/<0x580000 0xfa80000>/g' target/linux/mediatek/dts/mt7622-netgear-wax206.dts
+
+# 删除 backup 和 dummy 备用分区节点
+sed -i '/partition@2d80000/,/};/d' target/linux/mediatek/dts/mt7622-netgear-wax206.dts
+sed -i '/partition@5580000/,/};/d' target/linux/mediatek/dts/mt7622-netgear-wax206.dts
